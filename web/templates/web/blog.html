@@ -1,0 +1,284 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <header>
+      <div class="blog-title parallax-section">
+        <div class="white-layer">
+          <div class="container">
+            <h2>Blog Page title</h2>
+          </div><!-- end container -->
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="blog-page-background">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-8 blog-page-content">
+              <!-- Post 1 -->
+              <div class="blog-page-post">
+                <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
+                <div class="post-info">
+                  <h4><a href="#">Travel</a></h4>
+                  <h3><a href="#">Blog Post with Image</a></h3>
+                  <ul>
+                    <li>
+                      <a href="#">by John Luna</a>
+                    </li>
+                    <li>
+                      <a href="#">Dec 09</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Post short text -->
+                <div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mi leo, pellentesque id velit a, ornare sollicitudin tortor. Aenean ut tempor metus. Etiam sodales, risus a ultricies ornare, nisl mi malesuada lorem, ut convallis urna quam a magna.</p>
+                </div>
+                <!-- end Post short text -->
+                <div class="post-additional-info">
+                  <!-- Share on Social Media -->
+                  <div>
+                    <ul class="share">
+                      <li>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- end Share on Social Media -->
+                  <div>
+                    <a class="read-more" href="#">Read More<i class="fa fa-long-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <!-- Post 2 -->
+              <div class="blog-page-post">
+                <div id="postSlider" class="owl-carousel">
+                  <div>
+                    <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
+                  </div>
+                  <div>
+                    <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
+                  </div>
+                </div>
+                <div class="post-info">
+                  <h4><a href="#">Meeting</a></h4>
+                  <h3><a href="#">Blog Post with Slider</a></h3>
+                  <ul>
+                    <li>
+                      <a href="#">by John Luna</a>
+                    </li>
+                    <li>
+                      <a href="#">Dec 09</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Post short text -->
+                <div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mi leo, pellentesque id velit a, ornare sollicitudin tortor. Aenean ut tempor metus. Etiam sodales, risus a ultricies ornare, nisl mi malesuada lorem, ut convallis urna quam a magna.</p>
+                </div>
+                <!-- end Post short text -->
+                <div class="post-additional-info">
+                  <!-- Share on Social Media -->
+                  <div>
+                    <ul class="share">
+                      <li>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- end Share on Social Media -->
+                  <div>
+                    <a class="read-more" href="#">Read More<i class="fa fa-long-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <!-- Post 3 -->
+              <div class="blog-page-post">
+                <!-- Post video -->
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/143512551" allowfullscreen></iframe>
+                </div>
+                <!-- end Post video -->
+                <div class="post-info">
+                  <h4><a href="#">Lifestyle</a></h4>
+                  <h3><a href="#">Blog Post with Video</a></h3>
+                  <ul>
+                    <li>
+                      <a href="#">by John Luna</a>
+                    </li>
+                    <li>
+                      <a href="#">Dec 09</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Post short text -->
+                <div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mi leo, pellentesque id velit a, ornare sollicitudin tortor. Aenean ut tempor metus. Etiam sodales, risus a ultricies ornare, nisl mi malesuada lorem, ut convallis urna quam a magna.</p>
+                </div>
+                <!-- end Post short text -->
+                <div class="post-additional-info">
+                  <!-- Share on Social Media -->
+                  <div>
+                    <ul class="share">
+                      <li>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- end Share on Social Media -->
+                  <div>
+                    <a class="read-more" href="#">Read More<i class="fa fa-long-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <!-- end Post 3 -->
+            </div>
+            <!-- Sidebar -->
+            <div class="col-xs-12 col-sm-4 blog-sidebar">
+              <!-- Category -->
+              <div class="sidebar-box">
+                <h4>Category</h4>
+                <ul class="categories">
+                  <li>
+                    <a href="#">Lifestyle<span>10</span></a>
+                  </li>
+                  <li>
+                    <a href="#">Meeting<span>3</span></a>
+                  </li>
+                  <li>
+                    <a href="#">Travel<span>5</span></a>
+                  </li>
+                  <li>
+                    <a href="#">Food<span>10</span></a>
+                  </li>
+                  <li>
+                    <a href="#">Health<span>12</span></a>
+                  </li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+              <!-- end Category -->
+              <!-- Tag Cloud -->
+              <div class="sidebar-box">
+                <h4>Tag Cloud</h4>
+                <ul class="tag-cloud">
+                  <li>
+                    <a href="#">Photography</a>
+                  </li>
+                  <li>
+                    <a href="#">Video</a>
+                  </li>
+                  <li>
+                    <a href="#">Nature</a>
+                  </li>
+                  <li>
+                    <a href="#">Movie</a>
+                  </li>
+                  <li>
+                    <a href="#">Music</a>
+                  </li>
+                  <li>
+                    <a href="#">Documentary</a>
+                  </li>
+                  <li>
+                    <a href="#">Office</a>
+                  </li>
+                  <li>
+                    <a href="#">Advice</a>
+                  </li>
+                  <li>
+                    <a href="#">Art</a>
+                  </li>
+                  <li>
+                    <a href="#">Book</a>
+                  </li>
+                  <li>
+                    <a href="#">Technology</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- end Tag Cloud -->
+              <!-- Popular Posts -->
+              <div class="sidebar-box">
+                <h4>Popular Posts</h4>
+                <div class="popular-posts">
+                  <!-- Popular Post 1 -->
+                  <div class="post-box">
+                    <a href="#">
+                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
+                    </a>
+                    <div>
+                      <p><a href="#">Blog Post with Image</a></p>
+                      <span>Dec 09, 2015</span>
+                    </div>
+                  </div>
+                  <!-- Popular Post 2 -->
+                  <div class="post-box">
+                    <a href="#">
+                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
+                    </a>
+                    <div>
+                      <p><a href="#">Standart Blog Post</a></p>
+                      <span>Dec 08, 2015</span>
+                    </div>
+                  </div>
+                  <!-- Popular Post 3 -->
+                  <div class="post-box">
+                    <a href="#">
+                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
+                    </a>
+                    <div>
+                      <p><a href="#">Blog Post with Image</a></p>
+                      <span>Dec 07, 2015</span>
+                    </div>
+                  </div>
+                  <!-- end Popular Post 3 -->
+                </div>
+              </div>
+              <!-- end Popular Posts -->
+              <!-- Follow me -->
+              <div class="sidebar-box">
+                <h4>Follow me on</h4>
+                <ul class="follow-me">
+                  <li>
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                  </li>
+                </ul>
+              </div>
+              <!-- end Follow me -->
+            </div>
+            <!-- end Sidebar -->
+          </div><!-- end row -->
+        </div><!-- end container -->
+      </div>
+    </section>
+{% endblock content %}
