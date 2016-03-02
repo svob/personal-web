@@ -17,6 +17,50 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-sm-8 blog-page-content">
+                {% if blog_posts %}
+                    {% for post in blog_posts %}
+                        <div class="blog-page-post">
+                            <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
+                            <div class="post-info">
+                              <h4><a href="#">Travel</a></h4>
+                              <h3><a href="#">{{ post.title }}</a></h3>
+                              <ul>
+                                <li>
+                                  <a href="#">by {{ post.author }}</a>
+                                </li>
+                                <li>
+                                  <a href="#">{{ post.pub_date }}</a>
+                                </li>
+                              </ul>
+                            </div>
+                        <!-- Post short text -->
+                            <div>
+                              <p>{{ post.text }}</p>
+                            </div>
+                            <!-- end Post short text -->
+                            <div class="post-additional-info">
+                              <!-- Share on Social Media -->
+                              <div>
+                                <ul class="share">
+                                  <li>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                  </li>
+                                  <li>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                  </li>
+                                  <li>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <!-- end Share on Social Media -->
+                              <div>
+                                <a class="read-more" href="#">Read More<i class="fa fa-long-arrow-right"></i></a>
+                              </div>
+                            </div>
+                          </div>
+                    {% endfor %}
+                {% endif %}
               <!-- Post 1 -->
               <div class="blog-page-post">
                 <img src="{% static 'web/images/demo-img.jpg' %}" alt="">

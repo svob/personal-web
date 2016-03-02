@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.views import generic
 
 # Create your views here.
-from web.models import Me
+from web.models import Me, BlogPost
 
 
 class BlogView(generic.ListView):
@@ -11,7 +11,7 @@ class BlogView(generic.ListView):
     context_object_name = 'blog_posts'
 
     def get_queryset(self):
-        return Blog.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+        return BlogPost.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
 
 def index(request):
     me = Me.objects.all()[0]

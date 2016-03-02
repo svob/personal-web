@@ -25,3 +25,22 @@ class Social(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
+class BlogPost(models.Model):
+    title = models.CharField(max_length=200)
+    text = models.CharField(max_length=1000)
+    pub_date = models.DateTimeField()
+    author = models.CharField(max_length=100, blank=True, null=True)
+    category = models.ForeignKey(Category, blank=True, null=True)
+    image = models.CharField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
