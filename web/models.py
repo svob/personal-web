@@ -5,6 +5,8 @@ class Me(models.Model):
     name = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
+    descript_short = models.CharField(max_length=200)
+    description = models.CharField(max_length=500)
     birth = models.DateField()
     email = models.CharField(max_length=50)
     phone = models.CharField(max_length=20)
@@ -33,14 +35,18 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Categories'
+
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
-    text = models.CharField(max_length=1000)
+    text = models.TextField()
     pub_date = models.DateTimeField()
     author = models.CharField(max_length=100, blank=True, null=True)
     category = models.ForeignKey(Category, blank=True, null=True)
-    image = models.CharField(max_length=500, blank=True, null=True)
+    image_top = models.CharField(max_length=500, blank=True, null=True)
+    image_side = models.CharField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.title

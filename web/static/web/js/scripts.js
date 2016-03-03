@@ -137,7 +137,7 @@ $(function() {
     /*===============================================
     Google Maps
   ===============================================*/
-  var markerIcon = "static/images/marker.png";
+  var markerIcon = "static/web/images/marker.png";
   // Map Initial Location
   var initLatitude = 49.05209; // <- Latitude here
   var initLongitude = 15.80865; // <- Longitude here

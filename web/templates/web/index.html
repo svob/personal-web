@@ -29,19 +29,15 @@
   						</div>
     					<div class="col-xs-12 col-md-6 about-grey-content">
     						<div>
-  	  						<h3>John Luna</h3>
+  	  						<h3>{{ me.name }} {{ me.surname }}</h3>
   	  						<span>Entrepreneur / Web Developer</span>
-  	  						<p>{{me.social_set.all }} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget nunc convallis, lacinia tellus eu, tempor libero. Curabitur convallis lacinia diam ac efficitur. Mauris libero nibh, dictum dignissim consequat a, eleifend vitae eros. Sed vitae mauris risus.</p>
+  	  						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget nunc convallis, lacinia tellus eu, tempor libero. Curabitur convallis lacinia diam ac efficitur. Mauris libero nibh, dictum dignissim consequat a, eleifend vitae eros. Sed vitae mauris risus.</p>
   	  						<ul>
+                                {% for social in me.social_set.all %}
   	  							<li>
-  	  								<a href="#"><i class="fa fa-facebook"></i></a>
+  	  								<a href="{{ social.href }}"><i class="fa {{ social.icon }}"></i></a>
   	  							</li>
-  	  							<li>
-  	  								<a href="#"><i class="fa fa-twitter"></i></a>
-  	  							</li>
-  	  							<li>
-  	  								<a href="#"><i class="fa fa-behance"></i></a>
-  	  							</li>
+                                {% endfor %}
   	  						</ul>
     						</div>
     					</div>

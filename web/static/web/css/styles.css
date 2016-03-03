@@ -989,7 +989,7 @@ input, textarea {
 }
 
 .blog-title .white-layer {
-	padding: 100px 0;
+	padding-top: 100px;
 }
 
 .blog-title h2 {
@@ -1188,7 +1188,8 @@ input, textarea {
 	color: rgb(30, 30, 30);
 }
 
-.categories li:last-child a {
+.categories li:last-child a,
+.categories li:nth-last-of-type(-n+2):not(:nth-child(even)) a {
 	border: none;
 }
 

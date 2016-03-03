@@ -1,0 +1,13 @@
+<div class="sidebar-box">
+    <h4>Category</h4>
+    <ul class="categories">
+    {% if categories %}
+        {% for category in categories %}
+            <li>
+                <a href="{% url 'web:blog_category' category.name|slugify %}">{{ category.name }}<span>{{ category.blogpost_set.count }}</span></a>
+            </li>
+        {% endfor %}
+    {% endif %}
+    </ul>
+    <div class="clearfix"></div>
+</div>

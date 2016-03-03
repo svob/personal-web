@@ -14,3 +14,4 @@ class MeAdmin(admin.ModelAdmin):
 admin.site.register(Me, MeAdmin)
 admin.site.register(BlogPost)
 admin.site.register(Category)
+admin.site.register(Social)
