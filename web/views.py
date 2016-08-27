@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.views import generic
 
 # Create your views here.
+from django.views.generic import DetailView
+
 from web.models import Me, BlogPost, Category
 
 
@@ -31,10 +33,16 @@ class BlogCategoryView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(BlogCategoryView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+        context['category'] = self.kwargs['category'].replace('-', " ")
         return context
 
+class BlogSingleView(DetailView):
+    context_object_name = 'post'
+    model = BlogPost
+    template_name = 'web/blog-single.html'
+
 def index(request):
-    me = Me.objects.all()[0]
+    me = Me.get_solo()
     return render(request, 'web/index.html', { 'me':me })
 
 def blog(request):
@@ -46,5 +54,3 @@ def portfolio(request):
 def contact(request):
     return render(request, 'web/contact.html')
 
-def blog_single(request, pk):
-    return render(request, 'web/blog-single.html')

@@ -1,11 +1,16 @@
 {% extends 'web/blog.html' %}
 {% load staticfiles %}
+{% load title %}
+{% load absurl %}
+{% block title %}{% title %} | {{ post.title }}{% endblock %}
+{% block page_title %}{{ post.title }}{% endblock %}
 {% block posts %}
   <div class="blog-single-post">
-    <!-- Post image -->
-    <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-    <!-- end Post image -->
     <!-- Post content -->
+    <div class="post">
+        {{ post.text }}
+    </div>
+      {% comment %}
     <div class="post">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras congue mollis justo eu faucibus. Sed tincidunt purus et risus feugiat, a suscipit quam vulputate. Morbi elementum, turpis eget blandit facilisis, est urna vestibulum sem, at tincidunt eros lacus id libero.</p>
       <blockquote>
@@ -13,15 +18,15 @@
       </blockquote>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras congue mollis justo eu faucibus. Sed tincidunt purus et risus feugiat, a suscipit quam vulputate. Morbi elementum, turpis eget blandit facilisis, est urna vestibulum sem, at tincidunt eros lacus id libero. Donec id turpis aliquet, luctus leo at, porta risus.</p>
     </div>
+    {% endcomment %}
     <!-- end Post content -->
     <!-- Tags -->
     <ul class="tags">
-      <li>
-        <a href="#">Photography</a>
-      </li>
-      <li>
-        <a href="#">Nature</a>
-      </li>
+        {% for tag in post.tags.all %}
+            <li>
+                <a href="#">{{ tag }}</a>
+            </li>
+        {% endfor %}
     </ul>
     <!-- end Tags -->
     <div class="post-additional-info">
@@ -29,13 +34,13 @@
       <div>
         <ul class="share">
           <li>
-            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={% absurl 'web:blog_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-facebook"></i></a>
           </li>
           <li>
-            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="https://twitter.com/home?status={{ post.title|urlencode }}:%20{% absurl 'web:blog_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter"></i></a>
           </li>
           <li>
-            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="https://plus.google.com/share?url={% absurl 'web:blog_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus"></i></a>
           </li>
         </ul>
       </div>
@@ -43,10 +48,10 @@
       <div>
         <ul class="post-date">
           <li>
-            <a href="#">by John Luna</a>
+            <a href="#">by {{ post.author. }}</a>
           </li>
           <li>
-            <a href="#">Dec 09, 2015</a>
+            <a href="#">{{ post.pub_date }}</a>
           </li>
         </ul>
       </div>

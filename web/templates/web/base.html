@@ -61,7 +61,7 @@
         <li class="{% if request.resolver_match.url_name == "index" %}active{% endif %}">
           <a href="{% url 'web:index' %}">About</a>
         </li>
-        <li class="{% if request.resolver_match.url_name == "blog" %}active{% endif %}">
+        <li class="{% if request.resolver_match.url_name == "blog" or request.resolver_match.url_name == "blog_category" %}active{% endif %}">
           <a href="{% url 'web:blog' %}">Blog</a>
         </li>
         <li class="{% if request.resolver_match.url_name == "portfolio" %}active{% endif %}">
