@@ -2,6 +2,7 @@ from django.db import models
 from solo.models import SingletonModel
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
+from sorl.thumbnail import ImageField
 
 
 # Create your models here.
@@ -78,7 +79,7 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Categories'
+        verbose_name_plural = 'Blog categories'
 
 
 class BlogTag(models.Model):
@@ -88,7 +89,7 @@ class BlogTag(models.Model):
         return self.tag
 
     class Meta:
-        verbose_name_plural = 'BlogTags'
+        verbose_name_plural = 'Blog tags'
 
 
 class BlogPost(models.Model):
@@ -104,3 +105,39 @@ class BlogPost(models.Model):
     def __str__(self):
         return self.title
 
+
+class PortfolioCategory(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Portfolio categories'
+
+
+class PortfolioTag(models.Model):
+    tag = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.tag
+
+    class Meta:
+        verbose_name_plural = 'Portfolio tags'
+
+
+class Project(models.Model):
+    title = models.CharField(max_length=200)
+    text = RichTextUploadingField()
+    pub_date = models.DateTimeField()
+    author = models.ForeignKey(Me, default=1)
+    categories = models.ManyToManyField(PortfolioCategory)
+    tags = models.ManyToManyField(PortfolioTag)
+
+    def __str__(self):
+        return self.title
+
+
+class ProjectImage(models.Model):
+    image = ImageField(upload_to='portfolio')
+    project = models.ForeignKey(Project, related_name='images')

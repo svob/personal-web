@@ -1,5 +1,6 @@
 {% extends "web/base.html" %}
 {% load staticfiles %}
+{% load socials %}
 
 {% block title %}{{ block.super }} | About{% endblock %}
 
@@ -32,13 +33,9 @@
   	  						<h3>{{ me.name }} {{ me.surname }}</h3>
   	  						<span>Entrepreneur / Web Developer</span>
   	  						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget nunc convallis, lacinia tellus eu, tempor libero. Curabitur convallis lacinia diam ac efficitur. Mauris libero nibh, dictum dignissim consequat a, eleifend vitae eros. Sed vitae mauris risus.</p>
-  	  						<ul>
-                                {% for social in me.social_set.all %}
-  	  							<li>
-  	  								<a href="{{ social.href }}"><i class="fa {{ social.icon }}"></i></a>
-  	  							</li>
-                                {% endfor %}
-  	  						</ul>
+                                <ul>
+                                    {% socials %}
+                                </ul>
     						</div>
     					</div>
             </div>
@@ -477,11 +474,3 @@
   	</section>
   	<!-- end Contact section -->
 {% endblock content %}
-
-{% block footer_socials %}
-    {% for social in me.social_set.all %}
-        <li>
-            <a href="{{ social.href }}"><i class="fa {{ social.icon }}"></i></a>
-        </li>
-    {% endfor %}
-{% endblock %}

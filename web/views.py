@@ -11,7 +11,7 @@ from .forms import ContactForm
 # Create your views here.
 from django.views.generic import DetailView
 
-from web.models import Me, BlogPost, Category
+from web.models import Me, BlogPost, Category, Project, PortfolioCategory
 
 
 class BlogView(generic.ListView):
@@ -24,7 +24,7 @@ class BlogView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(BlogView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
-        context['me'] = Me.objects.all()[0]
+        context['me'] = Me.get_solo()
         return context
 
 class BlogCategoryView(generic.ListView):
@@ -33,7 +33,6 @@ class BlogCategoryView(generic.ListView):
 
     def get_queryset(self):
         category = self.kwargs['category'].replace('-', ' ')
-        get_object_or_404(Category, name=category)
         return BlogPost.objects.filter(categories__name=category)
 
     def get_context_data(self, **kwargs):
@@ -71,11 +70,41 @@ def index(request):
     print("tudlenudle")
     return render(request, 'web/index.html', { 'me':me, 'form':form })
 
-def blog(request):
-    return render(request, 'web/blog.html')
 
-def portfolio(request):
-    return render(request, 'web/portfolio.html')
+class PortfolioView(generic.ListView):
+    template_name = 'web/portfolio.html'
+    context_object_name = 'blog_posts'
+
+    def get_queryset(self):
+        return Project.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+
+    def get_context_data(self, **kwargs):
+        context = super(PortfolioView, self).get_context_data(**kwargs)
+        context['categories'] = PortfolioCategory.objects.all()
+        context['me'] = Me.get_solo()
+        return context
+
+
+class PortfolioSingleView(DetailView):
+    context_object_name = 'post'
+    model = Project
+    template_name = 'web/portfolio-single.html'
+
+
+class PortfolioCategoryView(generic.ListView):
+    template_name = 'web/portfolio.html'
+    context_object_name = 'blog_posts'
+
+    def get_queryset(self):
+        category = self.kwargs['category'].replace('-', ' ')
+        return Project.objects.filter(categories__name__iexact=category)
+
+    def get_context_data(self, **kwargs):
+        context = super(PortfolioCategoryView, self).get_context_data(**kwargs)
+        context['categories'] = PortfolioCategory.objects.all()
+        context['category'] = self.kwargs['category'].replace('-', " ")
+        return context
+
 
 def contact(request):
     return render(request, 'web/contact.html')

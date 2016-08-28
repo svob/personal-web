@@ -1,10 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+{% load categories from portfolio_categories %}
+{% load absurl %}
+{% load socials %}
+{% load thumbnail %}
 
-</body>
-</html>
+{% block head %}
+    <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/darcula.css' %}">
+    <script src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}
+{% block title %}{{ block.super }} | Portfolio{% endblock %}
+{% block content %}
+    <header>
+      <div class="blog-title parallax-section">
+        <div class="white-layer">
+          <div class="container">
+            <h2>{% block page_title %}
+                {% if category %}
+                    {{ category|capfirst }}
+                {% else %}
+                    All categories
+                {% endif %}
+            {% endblock %}</h2>
+          </div><!-- end container -->
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="blog-page-background">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-8 blog-page-content">
+            {% block posts %}
+                    {% for post in blog_posts %}
+                        <div class="blog-page-post">
+                            <div class="post-info">
+                                {% for category in post.categories.all %}
+                                  <h4><a href="{% url 'web:portfolio_category' category|slugify %}">{{ category }}</a></h4>
+                                {% endfor %}
+                              <h3><a href="{% url 'web:portfolio_single' post.id %}{{ post.title|slugify }}">{{ post.title }}</a></h3>
+                              <ul>
+                                <li>
+                                  <a>{{ post.pub_date|date:"j. n. Y"  }}</a>
+                                </li>
+                              </ul>
+                            </div>
+                        <!-- Post short text -->
+                            <div>
+                              <div class="post-images" style="width:200px; float:left; margin-right: 15px;">
+                                {% for image in post.images.all %}
+                                    <div>
+                                      <a href="{{ MEDIA_URL }}{{ image.image }}" data-lightbox="{{ post.title|slugify }}">
+{#                                        <img src="{{ MEDIA_URL }}{{ image.image }}" alt="">#}
+                                          {% thumbnail image.image "200" as thumb %}
+                                            <img src="{{ thumb.url }}" alt="">
+                                          {% endthumbnail %}
+                                      </a>
+                                    </div>
+                                {% endfor %}
+                              </div>
+                                <p>
+                                  {{ post.text|safe }}
+                                </p>
+                            <div class="clearfix"></div>
+                            </div>
+                            <!-- end Post short text -->
+                            <div class="post-additional-info">
+                              <!-- Share on Social Media -->
+                              <div>
+                                <ul class="share">
+                                  <li>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={% absurl 'web:portfolio_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-facebook"></i></a>
+                                  </li>
+                                  <li>
+                                    <a href="https://twitter.com/home?status={{ post.title|urlencode }}:%20{% absurl 'web:portfolio_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter"></i></a>
+                                  </li>
+                                  <li>
+                                    <a href="https://plus.google.com/share?url={% absurl 'web:portfolio_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus"></i></a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <!-- end Share on Social Media -->
+                              <div>
+                                  <ul class="post-date">
+                                    <li><a href="#">by {{ post.author }}</a></li>
+                                  </ul>
+                              </div>
+                            </div>
+                          </div>
+                    {% endfor %}
+                {% endblock posts %}
+            </div>
+            <!-- Sidebar -->
+            <div class="col-xs-12 col-sm-4 blog-sidebar">
+              <!-- Category -->
+            {% block categories %}
+                {% categories %}
+            {% endblock categories %}
+              <!-- end Category -->
+            <!-- Popular Posts -->
+              <div class="sidebar-box">
+                <h4>Popular Projects</h4>
+                <div class="popular-posts">
+                  <!-- Popular Post 1 -->
+                  <div class="post-box">
+                    <a href="#">
+                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
+                    </a>
+                    <div>
+                      <p><a href="#">Blog Post with Image</a></p>
+                      <span>Dec 09, 2015</span>
+                    </div>
+                  </div>
+                  <!-- Popular Post 2 -->
+                  <div class="post-box">
+                    <a href="#">
+                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
+                    </a>
+                    <div>
+                      <p><a href="#">Standart Blog Post</a></p>
+                      <span>Dec 08, 2015</span>
+                    </div>
+                  </div>
+                  <!-- Popular Post 3 -->
+                  <div class="post-box">
+                    <a href="#">
+                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
+                    </a>
+                    <div>
+                      <p><a href="#">Blog Post with Image</a></p>
+                      <span>Dec 07, 2015</span>
+                    </div>
+                  </div>
+                  <!-- end Popular Post 3 -->
+                </div>
+              </div>
+              <!-- end Popular Posts -->
+            </div>
+            <!-- end Sidebar -->
+          </div><!-- end row -->
+        </div><!-- end container -->
+      </div>
+    </section>
+{% endblock %}

@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load categories %}
 {% load absurl %}
+{% load socials %}
 {% block title %}{{ block.super }} | Blog{% endblock %}
 {% block content %}
     <header>
@@ -10,7 +11,7 @@
           <div class="container">
             <h2>{% block page_title %}
                 {% if category %}
-                    {{ category }}
+                    {{ category|capfirst }}
                 {% else %}
                     All categories
                 {% endif %}
@@ -28,9 +29,6 @@
             {% block posts %}
                     {% for post in blog_posts %}
                         <div class="blog-page-post">
-                            {% if post.image %}
-                            <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-                            {% endif %}
                             <div class="post-info">
                                 {% for category in post.categories.all %}
                                   <h4><a href="{% url 'web:blog_category' category|slugify %}">{{ category }}</a></h4>
@@ -44,12 +42,12 @@
                             </div>
                         <!-- Post short text -->
                             <div>
-                              <p>
                               <div style="width:200px; float:left; margin-right: 15px;">
                                 {% if post.image %}
                               <img src="{{ MEDIA_URL }}{{ post.image }}" alt="">
                                 {% endif %}
                               </div>
+                            <p>
                             {% if post.text_short %}
                                 {{ post.text_short }}
                             {% else %}
@@ -58,7 +56,8 @@
                                  ...
                               {% endifnotequal %}
                             {% endif %}
-                              </p>
+                            </p>
+                            <div class="clearfix"></div>
                             </div>
                             <!-- end Post short text -->
                             <div class="post-additional-info">
@@ -84,143 +83,6 @@
                           </div>
                     {% endfor %}
                 {% endblock posts %}
-            {% comment %}
-              <!-- Post 1 -->
-              <div class="blog-page-post">
-                <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-                <div class="post-info">
-                  <h4><a href="#">Travel</a></h4>
-                  <h3><a href="#">Blog Post with Image</a></h3>
-                  <ul>
-                    <li>
-                      <a href="#">by John Luna</a>
-                    </li>
-                    <li>
-                      <a href="#">Dec 09</a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- Post short text -->
-                <div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mi leo, pellentesque id velit a, ornare sollicitudin tortor. Aenean ut tempor metus. Etiam sodales, risus a ultricies ornare, nisl mi malesuada lorem, ut convallis urna quam a magna.</p>
-                </div>
-                <!-- end Post short text -->
-                <div class="post-additional-info">
-                  <!-- Share on Social Media -->
-                  <div>
-                    <ul class="share">
-                      <li>
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                      </li>
-                      <li>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                      </li>
-                      <li>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                      </li>
-                    </ul>
-                  </div>
-                  <!-- end Share on Social Media -->
-                  <div>
-                    <a class="read-more" href="#">Read More<i class="fa fa-long-arrow-right"></i></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Post 2 -->
-              <div class="blog-page-post">
-                <div id="postSlider" class="owl-carousel">
-                  <div>
-                    <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-                  </div>
-                  <div>
-                    <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-                  </div>
-                </div>
-                <div class="post-info">
-                  <h4><a href="#">Meeting</a></h4>
-                  <h3><a href="#">Blog Post with Slider</a></h3>
-                  <ul>
-                    <li>
-                      <a href="#">by John Luna</a>
-                    </li>
-                    <li>
-                      <a href="#">Dec 09</a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- Post short text -->
-                <div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mi leo, pellentesque id velit a, ornare sollicitudin tortor. Aenean ut tempor metus. Etiam sodales, risus a ultricies ornare, nisl mi malesuada lorem, ut convallis urna quam a magna.</p>
-                </div>
-                <!-- end Post short text -->
-                <div class="post-additional-info">
-                  <!-- Share on Social Media -->
-                  <div>
-                    <ul class="share">
-                      <li>
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                      </li>
-                      <li>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                      </li>
-                      <li>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                      </li>
-                    </ul>
-                  </div>
-                  <!-- end Share on Social Media -->
-                  <div>
-                    <a class="read-more" href="#">Read More<i class="fa fa-long-arrow-right"></i></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Post 3 -->
-              <div class="blog-page-post">
-                <!-- Post video -->
-                <div class="embed-responsive embed-responsive-16by9">
-                  <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/143512551" allowfullscreen></iframe>
-                </div>
-                <!-- end Post video -->
-                <div class="post-info">
-                  <h4><a href="#">Lifestyle</a></h4>
-                  <h3><a href="#">Blog Post with Video</a></h3>
-                  <ul>
-                    <li>
-                      <a href="#">by John Luna</a>
-                    </li>
-                    <li>
-                      <a href="#">Dec 09</a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- Post short text -->
-                <div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mi leo, pellentesque id velit a, ornare sollicitudin tortor. Aenean ut tempor metus. Etiam sodales, risus a ultricies ornare, nisl mi malesuada lorem, ut convallis urna quam a magna.</p>
-                </div>
-                <!-- end Post short text -->
-                <div class="post-additional-info">
-                  <!-- Share on Social Media -->
-                  <div>
-                    <ul class="share">
-                      <li>
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                      </li>
-                      <li>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                      </li>
-                      <li>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                      </li>
-                    </ul>
-                  </div>
-                  <!-- end Share on Social Media -->
-                  <div>
-                    <a class="read-more" href="#">Read More<i class="fa fa-long-arrow-right"></i></a>
-                  </div>
-                </div>
-              </div>
-              <!-- end Post 3 -->
-              {% endcomment %}
             </div>
             <!-- Sidebar -->
             <div class="col-xs-12 col-sm-4 blog-sidebar">
@@ -267,22 +129,10 @@
                 </div>
               </div>
               <!-- end Popular Posts -->
-              <!-- Follow me -->
-              <div class="sidebar-box">
-                <h4>Follow me on</h4>
-                <ul class="follow-me">
-                {% for social in me.social_set.all %}
-                  <li>
-                    <a href="{{ social.href }}"><i class="fa {{ social.icon }}"></i></a>
-                  </li>
-                {% endfor %}
-                </ul>
-              </div>
-              <!-- end Follow me -->
             </div>
             <!-- end Sidebar -->
           </div><!-- end row -->
         </div><!-- end container -->
       </div>
     </section>
-{% endblock content %}
+{% endblock %}

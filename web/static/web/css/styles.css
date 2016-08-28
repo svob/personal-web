@@ -96,7 +96,7 @@ a:focus {
 }
 
 img {
-	width: 100%;
+	max-width: 100%;
 }
 
 ul, li, .row {
@@ -1074,6 +1074,22 @@ input, textarea {
 .post-info {
 	padding: 30px 0;
 	text-align: center;
+}
+
+.post-images {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.post-images > div {
+	text-align: center;
+	padding: 5px;
+	flex: 1 0 50%;
+}
+
+.post-images > div:first-child {
+	flex: 0 1 100%;
 }
 
 .post-info h4 a {
