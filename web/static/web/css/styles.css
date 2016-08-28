@@ -647,6 +647,14 @@ input, textarea {
 	padding: 100px 0;
 }
 
+.resume.section-title a {
+	color: #000;
+}
+
+.resume.section-title i {
+	font-size: 20px;
+}
+
 .education-content, 
 .employment-content {
 	padding: 0;
@@ -655,6 +663,17 @@ input, textarea {
 .resume-box {
 	position: relative;
 	margin-bottom: 30px;
+	padding-left: 25px;
+	padding-right: 45px;
+}
+
+
+.resume-box + .resume-box::before {
+	content: "";
+    border-top: 1px dashed rgb(200, 200, 200);
+    width: 100%;
+    position: absolute;
+    top: -15px;
 }
 
 .resume-box:last-child {
@@ -668,20 +687,51 @@ input, textarea {
 }
 
 .resume-box h3 {
-	color: rgb(160, 160, 160);
+	color: rgb(0, 0, 0);
+	font-size: 17px;
+}
+
+.resume-box h2 {
+	font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: none;
+    color: rgb(160, 160, 160);
+}
+
+.resume-box h2::before {
+	content: none;
 }
 
 .resume-box span {
-	color: rgb(30, 30, 30);
+	color: rgb(160, 160, 160);
 	font-weight: 700;
 	font-size: 12px;
 	letter-spacing: 1.5px;
-	text-transform: uppercase;
+	display: inline-block;
+}
+
+.resume-box span.date {
+	min-width: 120px;
 }
 
 .resume-box i {
 	color: rgb(160, 160, 160);
 	font-size: 30px;
+}
+
+.resume-box i.icon {
+	position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.resume-box .fa-calendar,
+.resume-box .fa-map-marker {
+	font-size: 13px;
+	position: relative;
+	margin-right: 3px;
 }
 
 /*-------------------------------------------------

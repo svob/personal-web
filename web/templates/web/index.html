@@ -54,30 +54,13 @@
         <div class="skills-background">
           <div class="row">
             <!-- Skill box 1 -->
-            <div class="col-xs-12 col-sm-6 col-md-3 skill-box">
-              <i class="fa fa-html5"></i>
-              <span data-to="100"></span>
-              <h4>HTML &amp; CSS3</h4>
-            </div>
-            <!-- Skill box 2 -->
-            <div class="col-xs-12 col-sm-6 col-md-3 skill-box">
-              <i class="fa fa-wordpress"></i>
-              <span data-to="80"></span>
-              <h4>Wordpress</h4>
-            </div>
-            <!-- Skill box 3 -->
-            <div class="col-xs-12 col-sm-6 col-md-3 skill-box">
-              <i class="fa fa-code"></i>
-              <span data-to="85"></span>
-              <h4>JavaScirpt</h4>
-            </div>
-            <!-- Skill box 4 -->
-            <div class="col-xs-12 col-sm-6 col-md-3 skill-box">
-              <i class="fa fa-paint-brush"></i>
-              <span data-to="90"></span>
-              <h4>Photoshop</h4>
-            </div>
-            <!-- end Skill box 4 -->
+              {% for skill in me.skill_set.all %}
+                <div class="col-xs-12 col-sm-6 col-md-3 skill-box">
+                  <i class="{{ skill.icon_class }}"></i>
+                  <span data-to="{{ skill.percentage }}"></span>
+                  <h4>{{ skill.name }}</h4>
+                </div>
+                {% endfor %}
           </div><!-- end row -->
         </div>
       </div><!-- end container -->
@@ -217,83 +200,37 @@
   	<section id="resume">
 			<div class="resume-background">
         <div class="container">
-  				<div class="section-title">
+  				<div class="resume section-title">
   					<h2>Resume</h2>
-  					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+  					<p><a href="{{ MEDIA_URL }}{{ me.resume }}"><i class="fa fa-file-pdf-o"></i> Download</a></p>
   				</div>
   				<div class="row">
   					<div class="col-xs-12 col-md-6 education-content">
-  						<!-- Education box 1 -->
+  						<!-- Education box -->
+                        {% for school in me.school_set.all %}
   						<div class="resume-box">
-  							<div>
-  								<h3>IT University</h3>
-                  <span>2011-2014</span>
-  							</div>
-  							<div>
-	  							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lorem lacus, mattis maximus odio a, tincidunt gravida turpis.</p>
-                  <i class="icon icon-basic-book-pencil"></i>
-  							</div>
+                            <h3>{{ school.course }}</h3>
+                            <h2>{{ school.name }}</h2>
+                            <span class="date"><i class="fa fa-calendar"></i>{{ school.start }}{% if school.end %}-{% endif %}{{ school.end }}</span>
+                            <span><i class="fa fa-map-marker"></i>{{ school.location }}</span>
+                            <p>{{ school.description }}</p>
+                            <i class="icon icon-basic-book-pencil"></i>
   						</div>
-  						<!-- Education box 2 -->
-  						<div class="resume-box">
-  							<div>
-  								<h3>IT University</h3>
-                  <span>2011-2014</span>
-  							</div>
-  							<div>
-	  							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lorem lacus, mattis maximus odio a, tincidunt gravida turpis.</p>
-                  <i class="icon icon-basic-book-pencil"></i>
-  							</div>
-  						</div>
-  						<!-- Education box 3 -->
-  						<div class="resume-box">
-  							<div>
-  								<h3>IT University</h3>
-                  <span>2011-2014</span>
-  							</div>
-  							<div>
-	  							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lorem lacus, mattis maximus odio a, tincidunt gravida turpis.</p>
-                  <i class="icon icon-basic-book-pencil"></i>
-  							</div>
-  						</div>
-  						<!-- end Education box 3 -->
+                        {% endfor %}
   					</div>
   					<div class="col-xs-12 col-md-6 employment-content">
-  						<!-- Employment box 1 -->
+  						<!-- Employment box -->
+                        {% for work in me.work_set.all %}
   						<div class="resume-box">
-  							<div>
-  								<h3>ThemeForest</h3>
-                  <span>2014-2016</span>
-  							</div>
-  							<div>
-	  							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lorem lacus, mattis maximus odio a, tincidunt gravida turpis.</p>
-                  <i class="icon icon-basic-case"></i>
-  							</div>
+                            <h3>{{ work.position }}</h3>
+                            <h2>{{ work.company_name }}</h2>
+                            <span class="date"><i class="fa fa-calendar"></i>{{ work.start }}{% if work.end %}-{% endif %}{{ work.end }}</span>
+                            <span><i class="fa fa-map-marker"></i>{{ work.location }}</span>
+                            <p>{{ work.location }}</p>
+                            <i class="icon icon-basic-case"></i>
   						</div>
-  						<!-- Employment box 2 -->
-  						<div class="resume-box">
-  							<div>
-  								<h3>PhotoDune</h3>
-                  <span>2013-2014</span>
-  							</div>
-  							<div>
-	  							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lorem lacus, mattis maximus odio a, tincidunt gravida turpis.</p>
-                  <i class="icon icon-basic-case"></i>
-  							</div>
-  						</div>
-  						<!-- Employment box 3 -->
-  						<div class="resume-box">
-  							<div>
-  								<h3>ThemeForest</h3>
-                  <span>2011-2013</span>
-  							</div>
-  							<div>
-	  							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lorem lacus, mattis maximus odio a, tincidunt gravida turpis.</p>
-                  <i class="icon icon-basic-case"></i>
-  							</div>
-  						</div>
-  						<!-- end Employment box 3 -->
-  					</div> 
+                        {% endfor %}
+  					</div>
   				</div><!-- end row -->
         </div><!-- end container -->
 			</div>
@@ -509,19 +446,20 @@
 	  				</div>
 	  				<!-- contact form -->
 	  				<form method="post" id="contactform">
-              <div class="input-style">
-	              <div>
-	                <input type="text" id="name" name="name" placeholder="Name">
-	              </div>
-	              <div>
-	                <input type="email" id="email" name="email" placeholder="E-Mail">
-	              </div>
-                <div>
-                  <input type="text" id="phone" name="phone" placeholder="Phone">
-                </div>
-              </div>
+                        {% csrf_token %}
+                      <div class="input-style">
+                          <div>
+                              {{ form.name }}
+                          </div>
+                          <div>
+                              {{ form.email }}
+                          </div>
+                        <div>
+                            {{ form.phone }}
+                        </div>
+                      </div>
               <div class="text-style">
-                <textarea name="message" id="message" placeholder="Message"></textarea>
+                  {{ form.message }}
                 <input type="submit" id="submit" class="submit-style" name="submit" value="Send Message">
               </div>
               <div>
@@ -539,3 +477,11 @@
   	</section>
   	<!-- end Contact section -->
 {% endblock content %}
+
+{% block footer_socials %}
+    {% for social in me.social_set.all %}
+        <li>
+            <a href="{{ social.href }}"><i class="fa {{ social.icon }}"></i></a>
+        </li>
+    {% endfor %}
+{% endblock %}

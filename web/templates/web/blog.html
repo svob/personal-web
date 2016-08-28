@@ -32,11 +32,13 @@
                             <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
                             {% endif %}
                             <div class="post-info">
-                              <h4><a href="{% url 'web:blog_category' post.category|slugify %}">{{ post.category }}</a></h4>
+                                {% for category in post.categories.all %}
+                                  <h4><a href="{% url 'web:blog_category' category|slugify %}">{{ category }}</a></h4>
+                                {% endfor %}
                               <h3><a href="{% url 'web:blog_single' post.id %}{{ post.title|slugify }}">{{ post.title }}</a></h3>
                               <ul>
                                 <li>
-                                  <a>{{ post.pub_date }}</a>
+                                  <a>{{ post.pub_date|date:"j. n. Y"  }}</a>
                                 </li>
                               </ul>
                             </div>
@@ -48,10 +50,14 @@
                               <img src="{{ MEDIA_URL }}{{ post.image }}" alt="">
                                 {% endif %}
                               </div>
+                            {% if post.text_short %}
+                                {{ post.text_short }}
+                            {% else %}
                               {{ post.text|truncatechars:500 }}
                               {% ifnotequal post.text|truncatechars:500|length post.text|truncatechars:500|length %}
                                  ...
                               {% endifnotequal %}
+                            {% endif %}
                               </p>
                             </div>
                             <!-- end Post short text -->

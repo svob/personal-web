@@ -98,26 +98,33 @@ $(function() {
   /*===============================================
     Contact Form
   ===============================================*/
+
   $("#contactform").on('submit',function(e) {
-    var name = $("#name").val();
-    var email = $("#email").val();
-    var phone = $("#phone").val();
-    var message = $("#message").val();
+    var name = $("#id_name").val();
+    var email = $("#id_email").val();
+    var phone = $("#id_phone").val();
+    var message = $("#id_message").val();
+    var error = false;
+
+      $("#id_name").css('border-color','rgb(245, 245, 245)');
+      $("#id_email").css('border-color','rgb(245, 245, 245)');
+      $("#id_message").css('border-color','rgb(245, 245, 245)');
+
     if (name == '') {
-      $("#name").css('border-color','rgba(255, 0, 0, 0.5)');
+      $("#id_name").css('border-color','rgba(255, 0, 0, 0.5)');
+      error = true;
     }
     if (email == '') {
-      $("#email").css('border-color','rgba(255, 0, 0, 0.5)');
-    }
-    if (phone == '') {
-      $("#phone").css('border-color','rgba(255, 0, 0, 0.5)');
+      $("#id_email").css('border-color','rgba(255, 0, 0, 0.5)');
+        error = true;
     }
     if (message == '') {
-      $("#message").css('border-color','rgba(255, 0, 0, 0.5)');
+      $("#id_message").css('border-color','rgba(255, 0, 0, 0.5)');
+        error = true;
     }
-    else {
+    if (!error) {
       $.ajax({
-        url:'contact_form.php',
+        url:'/',
         data:$(this).serialize(),
         type:'POST',
         success:function(data){

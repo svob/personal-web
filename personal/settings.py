@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'solo',
     'ckeditor',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -127,3 +128,27 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar_customToolbar': [
+            {'name': 'styles', 'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Undo', 'Redo']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'insert', 'items': ['Image', 'CodeSnippet', 'Table', 'HorizontalRule']},
+            {'name': 'color', 'items': ['TextColor', 'BGColor']},
+            {'name': 'symbols', 'items': ['Smiley', 'SpecialChar']},
+            {'name': 'tools', 'items': ['Maximize']},
+            {'name': 'document', 'items': ['Source']}
+        ],
+        'toolbar': 'customToolbar',
+        'extraPlugins': ','.join(
+            [
+                'codesnippet',
+            ]),
+    }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = 'tmp/email-messages/'

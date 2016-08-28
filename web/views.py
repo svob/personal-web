@@ -1,6 +1,12 @@
+import json
+
+from django.http import HttpResponse
 from django.shortcuts import render,get_list_or_404, get_object_or_404
 from django.utils import timezone
 from django.views import generic
+from django.core.mail import send_mail
+
+from .forms import ContactForm
 
 # Create your views here.
 from django.views.generic import DetailView
@@ -28,7 +34,7 @@ class BlogCategoryView(generic.ListView):
     def get_queryset(self):
         category = self.kwargs['category'].replace('-', ' ')
         get_object_or_404(Category, name=category)
-        return BlogPost.objects.filter(category__name=category)
+        return BlogPost.objects.filter(categories__name=category)
 
     def get_context_data(self, **kwargs):
         context = super(BlogCategoryView, self).get_context_data(**kwargs)
@@ -43,7 +49,27 @@ class BlogSingleView(DetailView):
 
 def index(request):
     me = Me.get_solo()
-    return render(request, 'web/index.html', { 'me':me })
+
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        print("postik")
+        if form.is_valid():
+            print("juchu")
+            subject = 'Message from personal webpage.'
+            sender = form.cleaned_data['email']
+            message = 'Name: ' + form.cleaned_data['name'] + "\n"+\
+                      'Phone: ' + form.cleaned_data['phone'] + "\n"+ \
+                      form.cleaned_data['message']
+            recipients = [me.email]
+            print("form data: "+form.cleaned_data['message'])
+            send_mail(subject, message, sender, recipients)
+            return HttpResponse(
+                json.dumps({'state': 'ok'}), content_type='application/json'
+            )
+    else:
+        form = ContactForm()
+    print("tudlenudle")
+    return render(request, 'web/index.html', { 'me':me, 'form':form })
 
 def blog(request):
     return render(request, 'web/blog.html')
