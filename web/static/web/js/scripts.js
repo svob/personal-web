@@ -39,8 +39,8 @@ $(function() {
   /*===============================================
     Parallax
   ===============================================*/
-  $(".parallax-section").parallax({ 
-    speed : 0.3 
+  $(".parallax-section").parallax({
+    speed : 0.3
   });
 
   /*===============================================
@@ -62,7 +62,7 @@ $(function() {
 
   // Custom Navigation
   var blogNavigation = $("#blogSlider");
- 
+
   // Events
   $("#next").on("click", function(){
     blogNavigation.trigger('owl.next');

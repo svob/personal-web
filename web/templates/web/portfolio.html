@@ -4,6 +4,7 @@
 {% load absurl %}
 {% load socials %}
 {% load thumbnail %}
+{% load popular_projects %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/darcula.css' %}">
@@ -37,23 +38,25 @@
                     {% for post in blog_posts %}
                         <div class="blog-page-post">
                             <div class="post-info">
-                                {% for category in post.categories.all %}
-                                  <h4><a href="{% url 'web:portfolio_category' category|slugify %}">{{ category }}</a></h4>
-                                {% endfor %}
                               <h3><a href="{% url 'web:portfolio_single' post.id %}{{ post.title|slugify }}">{{ post.title }}</a></h3>
-                              <ul>
-                                <li>
-                                  <a>{{ post.pub_date|date:"j. n. Y"  }}</a>
-                                </li>
+                              <ul class="icons">
+                                {% for technology in post.technologies.all %}
+                                    <li>
+                                    {% if technology.icon_class %}
+                                        <i class="{{ technology.icon_class }}"></i>
+                                    {% elif technology.icon_image %}
+                                        <img src="{{ MEDIA_URL }}{{ technology.icon_image }}">
+                                    {% endif %}
+                                    </li>
+                                {% endfor %}
                               </ul>
                             </div>
                         <!-- Post short text -->
                             <div>
-                              <div class="post-images" style="width:200px; float:left; margin-right: 15px;">
+                              <div class="post-images">
                                 {% for image in post.images.all %}
                                     <div>
                                       <a href="{{ MEDIA_URL }}{{ image.image }}" data-lightbox="{{ post.title|slugify }}">
-{#                                        <img src="{{ MEDIA_URL }}{{ image.image }}" alt="">#}
                                           {% thumbnail image.image "200" as thumb %}
                                             <img src="{{ thumb.url }}" alt="">
                                           {% endthumbnail %}
@@ -61,9 +64,30 @@
                                     </div>
                                 {% endfor %}
                               </div>
-                                <p>
                                   {{ post.text|safe }}
-                                </p>
+                            <br><br>
+                                  <ul class="links">
+                                      {% if post.github %}
+                                        <li>
+                                        <i class="fa fa-github" aria-hidden="true"></i> <a href="{{ post.github }}" target="_blank">View source on GitHub</a>
+                                        </li>
+                                      {% endif %}
+                                      {% if post.preview %}
+                                        <li>
+                                        <i class="fa fa-external-link" aria-hidden="true"></i> <a href="{{ post.preview }}" target="_blank">Live preview</a>
+                                        </li>
+                                      {% endif %}
+                                      {% if post.download_url %}
+                                        <li>
+                                        <i class="fa fa-download" aria-hidden="true"></i> <a href="{{ post.download_url }}">Download</a>
+                                        </li>
+                                      {% endif %}
+                                      {% if post.download_file %}
+                                        <li>
+                                        <i class="fa fa-download" aria-hidden="true"></i> <a href="{{ MEDIA_URL }}{{ post.download_file }}">Download</a>
+                                        </li>
+                                      {% endif %}
+                                  </ul>
                             <div class="clearfix"></div>
                             </div>
                             <!-- end Post short text -->
@@ -85,7 +109,7 @@
                               <!-- end Share on Social Media -->
                               <div>
                                   <ul class="post-date">
-                                    <li><a href="#">by {{ post.author }}</a></li>
+                                    <li><a href="{% url 'web:portfolio_single' post.id %}{{ post.title|slugify }}">Read Comments<i class="fa fa-long-arrow-right"></i></a></li>
                                   </ul>
                               </div>
                             </div>
@@ -101,42 +125,7 @@
             {% endblock categories %}
               <!-- end Category -->
             <!-- Popular Posts -->
-              <div class="sidebar-box">
-                <h4>Popular Projects</h4>
-                <div class="popular-posts">
-                  <!-- Popular Post 1 -->
-                  <div class="post-box">
-                    <a href="#">
-                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-                    </a>
-                    <div>
-                      <p><a href="#">Blog Post with Image</a></p>
-                      <span>Dec 09, 2015</span>
-                    </div>
-                  </div>
-                  <!-- Popular Post 2 -->
-                  <div class="post-box">
-                    <a href="#">
-                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-                    </a>
-                    <div>
-                      <p><a href="#">Standart Blog Post</a></p>
-                      <span>Dec 08, 2015</span>
-                    </div>
-                  </div>
-                  <!-- Popular Post 3 -->
-                  <div class="post-box">
-                    <a href="#">
-                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-                    </a>
-                    <div>
-                      <p><a href="#">Blog Post with Image</a></p>
-                      <span>Dec 07, 2015</span>
-                    </div>
-                  </div>
-                  <!-- end Popular Post 3 -->
-                </div>
-              </div>
+            {% popular_projects %}
               <!-- end Popular Posts -->
             </div>
             <!-- end Sidebar -->

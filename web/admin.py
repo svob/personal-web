@@ -3,8 +3,8 @@ from solo.admin import SingletonModelAdmin
 from sorl.thumbnail.admin import AdminImageMixin
 
 # Register your models here.
-from web.models import Me, Social, BlogPost, Category, BlogTag, School, Work, Skill, ProjectImage, Project, PortfolioTag, \
-    PortfolioCategory
+from web.models import Me, Social, BlogPost, Category, BlogTag, School, Work, Skill, ProjectImage, Project, \
+    PortfolioCategory, PortfolioTechnologies
 
 
 class SocialInline(admin.TabularInline):
@@ -34,7 +34,7 @@ class BlogPostsAdmin(admin.ModelAdmin):
     filter_horizontal = ("tags","categories")
 
 class ProjectsAdmin(admin.ModelAdmin):
-    filter_horizontal = ("tags","categories")
+    filter_horizontal = ("technologies","categories")
     inlines = [ImagesInline]
 
 class SchoolAdmin(admin.ModelAdmin):
@@ -62,6 +62,6 @@ admin.site.register(School, SchoolAdmin)
 admin.site.register(Work, WorkAdmin)
 admin.site.register(Skill, SkillAdmin)
 admin.site.register(Project, ProjectsAdmin)
-admin.site.register(PortfolioTag)
+admin.site.register(PortfolioTechnologies)
 admin.site.register(PortfolioCategory)
 admin.site.register(ProjectImage, ProjectImageAdmin)

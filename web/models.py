@@ -1,15 +1,17 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from solo.models import SingletonModel
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
 from sorl.thumbnail import ImageField
+from hitcount.models import HitCountMixin, HitCount
 
 
 # Create your models here.
 class Me(SingletonModel):
     name = models.CharField(max_length=50, default='John')
     surname = models.CharField(max_length=50, default='Doe')
-    photo = models.ImageField(upload_to='me', blank=True, null=True)
+    photo = ImageField(upload_to='me', blank=True, null=True)
     address = models.CharField(max_length=50, default='Home Sweet Home')
     descript_short = models.CharField(max_length=200, default='hello')
     description = models.TextField(max_length=500, default='kuk')
@@ -92,7 +94,7 @@ class BlogTag(models.Model):
         verbose_name_plural = 'Blog tags'
 
 
-class BlogPost(models.Model):
+class BlogPost(models.Model, HitCountMixin):
     title = models.CharField(max_length=200)
     text_short = models.TextField(blank=True, null=True)
     text = RichTextUploadingField()
@@ -100,7 +102,10 @@ class BlogPost(models.Model):
     author = models.ForeignKey(Me, default=1)
     categories = models.ManyToManyField(Category)
     tags = models.ManyToManyField(BlogTag)
-    image = models.ImageField(upload_to='posts', blank=True, null=True)
+    image = ImageField(upload_to='posts', blank=True, null=True)
+    hit_count_generic = GenericRelation(
+        HitCount, object_id_field='object_pk',
+        related_query_name='hit_count_generic_relation')
 
     def __str__(self):
         return self.title
@@ -116,23 +121,32 @@ class PortfolioCategory(models.Model):
         verbose_name_plural = 'Portfolio categories'
 
 
-class PortfolioTag(models.Model):
-    tag = models.CharField(max_length=50)
+class PortfolioTechnologies(models.Model):
+    name = models.CharField(max_length=50)
+    icon_class = models.CharField(max_length=100, blank=True, null=True)
+    icon_image = ImageField(upload_to="portfolio/icons", blank=True, null=True)
 
     def __str__(self):
-        return self.tag
+        return self.name
 
     class Meta:
-        verbose_name_plural = 'Portfolio tags'
+        verbose_name_plural = 'Portfolio technolgies'
 
 
-class Project(models.Model):
+class Project(models.Model, HitCountMixin):
     title = models.CharField(max_length=200)
     text = RichTextUploadingField()
+    github = models.URLField(blank=True, null=True)
+    preview = models.URLField(blank=True, null=True)
+    download_file = models.FileField(blank=True, null=True, upload_to="portfolio/files")
+    download_url = models.URLField(blank=True, null=True)
     pub_date = models.DateTimeField()
     author = models.ForeignKey(Me, default=1)
     categories = models.ManyToManyField(PortfolioCategory)
-    tags = models.ManyToManyField(PortfolioTag)
+    technologies = models.ManyToManyField(PortfolioTechnologies)
+    hit_count_generic = GenericRelation(
+        HitCount, object_id_field='object_pk',
+        related_query_name='hit_count_generic_relation')
 
     def __str__(self):
         return self.title

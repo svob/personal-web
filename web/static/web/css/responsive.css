@@ -315,4 +315,11 @@
 	.error-page-background img {
 		width: 100%;
 	}
+    .post-images {
+        width: 100%;
+    }
+    .post ul.links,
+    .blog-page-post ul.links {
+        float: left;
+    }
 }

@@ -1,20 +1,51 @@
-{% extends 'web/blog.html' %}
+{% extends 'web/portfolio.html' %}
 {% load staticfiles %}
 {% load title %}
 {% load absurl %}
+{% load thumbnail %}
 
-{% block head %}
-    <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/darcula.css' %}">
-    <script src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-{% endblock %}
 {% block title %}{% title %} | {{ post.title }}{% endblock %}
 {% block page_title %}{{ post.title }}{% endblock %}
 {% block posts %}
   <div class="blog-single-post">
     <!-- Post content -->
     <div class="post">
+        <div class="post-images">
+        {% for image in post.images.all %}
+            <div>
+              <a href="{{ MEDIA_URL }}{{ image.image }}" data-lightbox="{{ post.title|slugify }}">
+                  {% thumbnail image.image "200" as thumb %}
+                    <img src="{{ thumb.url }}" alt="">
+                  {% endthumbnail %}
+              </a>
+            </div>
+        {% endfor %}
+        </div>
         {{ post.text|safe }}
+        <br><br>
+          <ul class="links">
+              {% if post.github %}
+                <li>
+                <i class="fa fa-github" aria-hidden="true"></i> <a href="{{ post.github }}" target="_blank">View source on GitHub</a>
+                </li>
+              {% endif %}
+              {% if post.preview %}
+                <li>
+                <i class="fa fa-external-link" aria-hidden="true"></i> <a href="{{ post.preview }}" target="_blank">Live preview</a>
+                </li>
+              {% endif %}
+              {% if post.download_url %}
+                <li>
+                <i class="fa fa-download" aria-hidden="true"></i> <a href="{{ post.download_url }}">Download</a>
+                </li>
+              {% endif %}
+              {% if post.download_file %}
+                <li>
+                <i class="fa fa-download" aria-hidden="true"></i> <a href="{{ MEDIA_URL }}{{ post.download_file }}">Download</a>
+                </li>
+              {% endif %}
+          </ul>
+    <div class="clearfix"></div>
     </div>
     <!-- Tags -->
     <ul class="tags">
@@ -30,13 +61,13 @@
       <div>
         <ul class="share">
           <li>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={% absurl 'web:blog_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-facebook"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={% absurl 'web:portfolio_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-facebook"></i></a>
           </li>
           <li>
-            <a href="https://twitter.com/home?status={{ post.title|urlencode }}:%20{% absurl 'web:blog_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter"></i></a>
+            <a href="https://twitter.com/home?status={{ post.title|urlencode }}:%20{% absurl 'web:portfolio_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter"></i></a>
           </li>
           <li>
-            <a href="https://plus.google.com/share?url={% absurl 'web:blog_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus"></i></a>
+            <a href="https://plus.google.com/share?url={% absurl 'web:portfolio_single' post.id %}{{ post.title|slugify }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus"></i></a>
           </li>
         </ul>
       </div>
@@ -46,73 +77,97 @@
           <li>
             <a href="#">by {{ post.author }}</a>
           </li>
-          <li>
-            <a href="#">{{ post.pub_date|date:"j. n. Y" }}</a>
-          </li>
         </ul>
       </div>
     </div>
     <!-- Comments -->
     <div class="comments">
       <h3>Comments</h3>
-      <ul>
-        <!-- Comment 1 -->
-        <li>
-          <div class="comment-head">
-            <img src="{% static 'web/images/client-img.jpg' %}" alt="">
-            <div>
-              <h4>James Carrick</h4>
-              <span>1 Day ago</span>
-            </div>
-            <a href="#">Reply</a>
-          </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>
-        </li>
-        <!-- Comment 2 -->
-        <li class="comment-reply">
-          <div class="comment-head">
-            <img src="{% static 'web/images/client-img.jpg' %}" alt="">
-            <div>
-              <h4>Melissa Bakos</h4>
-              <span>1 Day ago</span>
-            </div>
-            <a href="#">Reply</a>
-          </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>
-        </li>
-        <!-- Comment 3 -->
-        <li>
-          <div class="comment-head">
-            <img src="{% static 'web/images/client-img.jpg' %}" alt="">
-            <div>
-              <h4>Harold Hackett</h4>
-              <span>2 Days ago</span>
-            </div>
-            <a href="#">Reply</a>
-          </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>
-        </li>
-        <!-- end Comment 3 -->
-      </ul>
+
+    <div id="disqus_thread"></div>
+        <script>
+        var disqus_config = function () {
+            this.page.url = '{% absurl 'web:portfolio_single' post.id %}';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = '{% url 'web:portfolio_single' post.id %}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = '//fsvoboda.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+{#      <ul>#}
+{#        <!-- Comment 1 -->#}
+{#        <li>#}
+{#          <div class="comment-head">#}
+{#            <img src="{% static 'web/images/client-img.jpg' %}" alt="">#}
+{#            <div>#}
+{#              <h4>James Carrick</h4>#}
+{#              <span>1 Day ago</span>#}
+{#            </div>#}
+{#            <a href="#">Reply</a>#}
+{#          </div>#}
+{#          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>#}
+{#        </li>#}
+{#        <!-- Comment 2 -->#}
+{#        <li class="comment-reply">#}
+{#          <div class="comment-head">#}
+{#            <img src="{% static 'web/images/client-img.jpg' %}" alt="">#}
+{#            <div>#}
+{#              <h4>Melissa Bakos</h4>#}
+{#              <span>1 Day ago</span>#}
+{#            </div>#}
+{#            <a href="#">Reply</a>#}
+{#          </div>#}
+{#          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>#}
+{#        </li>#}
+{#        <!-- Comment 3 -->#}
+{#        <li>#}
+{#          <div class="comment-head">#}
+{#            <img src="{% static 'web/images/client-img.jpg' %}" alt="">#}
+{#            <div>#}
+{#              <h4>Harold Hackett</h4>#}
+{#              <span>2 Days ago</span>#}
+{#            </div>#}
+{#            <a href="#">Reply</a>#}
+{#          </div>#}
+{#          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>#}
+{#        </li>#}
+{#        <!-- end Comment 3 -->#}
+{#      </ul>#}
+{#    </div>#}
+{#    <!-- end Comments -->#}
+{#    <!-- Write Comment -->#}
+{#    <div class="write-comment">#}
+{#      <h3>Leave a Reply</h3>#}
+{#      <form method="post">#}
+{#        <div class="comment-input">#}
+{#          <input type="text" id="name" name="name" placeholder="Name">#}
+{#        </div>#}
+{#        <div class="comment-input">#}
+{#          <input type="email" id="email" name="email" placeholder="E-Mail">#}
+{#        </div>#}
+{#        <!-- clearfix --><div class="clearfix"></div><!-- end clearfix -->#}
+{#        <div class="comment-text">#}
+{#          <textarea name="message" id="message" placeholder="Message"></textarea>#}
+{#        </div>#}
+{#        <input type="submit" id="submit" class="submit-style" name="submit" value="Post Comment">#}
+{#      </form>#}
     </div>
-    <!-- end Comments -->
-    <!-- Write Comment -->
-    <div class="write-comment">
-      <h3>Leave a Reply</h3>
-      <form method="post">
-        <div class="comment-input">
-          <input type="text" id="name" name="name" placeholder="Name">
-        </div>
-        <div class="comment-input">
-          <input type="email" id="email" name="email" placeholder="E-Mail">
-        </div>
-        <!-- clearfix --><div class="clearfix"></div><!-- end clearfix -->
-        <div class="comment-text">
-          <textarea name="message" id="message" placeholder="Message"></textarea>
-        </div>
-        <input type="submit" id="submit" class="submit-style" name="submit" value="Post Comment">
-      </form>
-    </div>
-    <!-- end Write Comment -->
+{#    <!-- end Write Comment -->#}
   </div>
 {% endblock posts %}
+
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/darcula.css' %}">
+    <script src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}

@@ -3,6 +3,8 @@
 {% load categories %}
 {% load absurl %}
 {% load socials %}
+{% load popular_posts %}
+
 {% block title %}{{ block.super }} | Blog{% endblock %}
 {% block content %}
     <header>
@@ -42,7 +44,7 @@
                             </div>
                         <!-- Post short text -->
                             <div>
-                              <div style="width:200px; float:left; margin-right: 15px;">
+                              <div class="post-images">
                                 {% if post.image %}
                               <img src="{{ MEDIA_URL }}{{ post.image }}" alt="">
                                 {% endif %}
@@ -92,42 +94,7 @@
                 {% endblock categories %}
               <!-- end Category -->
               <!-- Popular Posts -->
-              <div class="sidebar-box">
-                <h4>Popular Posts</h4>
-                <div class="popular-posts">
-                  <!-- Popular Post 1 -->
-                  <div class="post-box">
-                    <a href="#">
-                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-                    </a>
-                    <div>
-                      <p><a href="#">Blog Post with Image</a></p>
-                      <span>Dec 09, 2015</span>
-                    </div>
-                  </div>
-                  <!-- Popular Post 2 -->
-                  <div class="post-box">
-                    <a href="#">
-                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-                    </a>
-                    <div>
-                      <p><a href="#">Standart Blog Post</a></p>
-                      <span>Dec 08, 2015</span>
-                    </div>
-                  </div>
-                  <!-- Popular Post 3 -->
-                  <div class="post-box">
-                    <a href="#">
-                      <img src="{% static 'web/images/demo-img.jpg' %}" alt="">
-                    </a>
-                    <div>
-                      <p><a href="#">Blog Post with Image</a></p>
-                      <span>Dec 07, 2015</span>
-                    </div>
-                  </div>
-                  <!-- end Popular Post 3 -->
-                </div>
-              </div>
+            {% popular_posts %}
               <!-- end Popular Posts -->
             </div>
             <!-- end Sidebar -->

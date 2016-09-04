@@ -1071,6 +1071,17 @@ input, textarea {
 	margin: 0;
 }
 
+.post ul.links,
+.blog-page-post ul.links {
+    float: right;
+}
+
+.post ul.links a,
+.blog-page-post ul.links a {
+    color: #000;
+    text-decoration: underline;
+}
+
 .post-info {
 	padding: 30px 0;
 	text-align: center;
@@ -1080,6 +1091,13 @@ input, textarea {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+    width:200px;
+    float:left;
+    margin-right: 15px;
+}
+
+.post-images img {
+    align-self: center;
 }
 
 .post-images > div {
@@ -1140,6 +1158,19 @@ input, textarea {
 
 .post-info ul li a {
 	color: rgb(160, 160, 160);
+}
+
+.post-info ul.icons {
+	font-size: 20px;
+}
+
+.post-info ul.icons li::after {
+	content: none;
+}
+
+.post-info ul.icons img {
+	max-height: 20px;
+	mex-width: 20px;
 }
 
 .post-additional-info {
@@ -1308,8 +1339,8 @@ input, textarea {
 }
 
 .post-box div {
-	min-height: 63px; 
-	padding-left: 120px;
+	min-height: 63px;
+	text-align: center;
 }
 
 .post-box div p a {

@@ -95,10 +95,11 @@
     <script src="{% static 'web/js/retina.min.js' %}"></script>
     <!-- lightbox -->
     <script src="{% static 'web/js/lightbox.min.js' %}"></script>
+
+      {% block head %}{% endblock head %}
     <!-- Theme Plugins -->
     <script src="{% static 'web/js/theme-plugins.js' %}"></script>
     <!-- Custom Scripts -->
     <script src="{% static 'web/js/scripts.js' %}"></script>
-      {% block head %}{% endblock head %}
 	</body>
 </html>

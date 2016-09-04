@@ -5,6 +5,7 @@ from django.shortcuts import render,get_list_or_404, get_object_or_404
 from django.utils import timezone
 from django.views import generic
 from django.core.mail import send_mail
+from hitcount.views import HitCountDetailView
 
 from .forms import ContactForm
 
@@ -41,33 +42,30 @@ class BlogCategoryView(generic.ListView):
         context['category'] = self.kwargs['category'].replace('-', " ")
         return context
 
-class BlogSingleView(DetailView):
+class BlogSingleView(HitCountDetailView):
     context_object_name = 'post'
     model = BlogPost
     template_name = 'web/blog-single.html'
+    count_hit = True
 
 def index(request):
     me = Me.get_solo()
 
     if request.method == 'POST':
         form = ContactForm(request.POST)
-        print("postik")
         if form.is_valid():
-            print("juchu")
             subject = 'Message from personal webpage.'
             sender = form.cleaned_data['email']
             message = 'Name: ' + form.cleaned_data['name'] + "\n"+\
                       'Phone: ' + form.cleaned_data['phone'] + "\n"+ \
                       form.cleaned_data['message']
             recipients = [me.email]
-            print("form data: "+form.cleaned_data['message'])
             send_mail(subject, message, sender, recipients)
             return HttpResponse(
                 json.dumps({'state': 'ok'}), content_type='application/json'
             )
     else:
         form = ContactForm()
-    print("tudlenudle")
     return render(request, 'web/index.html', { 'me':me, 'form':form })
 
 
@@ -85,10 +83,11 @@ class PortfolioView(generic.ListView):
         return context
 
 
-class PortfolioSingleView(DetailView):
+class PortfolioSingleView(HitCountDetailView):
     context_object_name = 'post'
     model = Project
     template_name = 'web/portfolio-single.html'
+    count_hit = True
 
 
 class PortfolioCategoryView(generic.ListView):

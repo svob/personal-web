@@ -56,63 +56,82 @@
     <!-- Comments -->
     <div class="comments">
       <h3>Comments</h3>
-      <ul>
-        <!-- Comment 1 -->
-        <li>
-          <div class="comment-head">
-            <img src="{% static 'web/images/client-img.jpg' %}" alt="">
-            <div>
-              <h4>James Carrick</h4>
-              <span>1 Day ago</span>
-            </div>
-            <a href="#">Reply</a>
-          </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>
-        </li>
-        <!-- Comment 2 -->
-        <li class="comment-reply">
-          <div class="comment-head">
-            <img src="{% static 'web/images/client-img.jpg' %}" alt="">
-            <div>
-              <h4>Melissa Bakos</h4>
-              <span>1 Day ago</span>
-            </div>
-            <a href="#">Reply</a>
-          </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>
-        </li>
-        <!-- Comment 3 -->
-        <li>
-          <div class="comment-head">
-            <img src="{% static 'web/images/client-img.jpg' %}" alt="">
-            <div>
-              <h4>Harold Hackett</h4>
-              <span>2 Days ago</span>
-            </div>
-            <a href="#">Reply</a>
-          </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>
-        </li>
-        <!-- end Comment 3 -->
-      </ul>
-    </div>
-    <!-- end Comments -->
-    <!-- Write Comment -->
-    <div class="write-comment">
-      <h3>Leave a Reply</h3>
-      <form method="post">
-        <div class="comment-input">
-          <input type="text" id="name" name="name" placeholder="Name">
-        </div>
-        <div class="comment-input">
-          <input type="email" id="email" name="email" placeholder="E-Mail">
-        </div>
-        <!-- clearfix --><div class="clearfix"></div><!-- end clearfix -->
-        <div class="comment-text">
-          <textarea name="message" id="message" placeholder="Message"></textarea>
-        </div>
-        <input type="submit" id="submit" class="submit-style" name="submit" value="Post Comment">
-      </form>
+
+    <div id="disqus_thread"></div>
+        <script>
+        var disqus_config = function () {
+            this.page.url = '{% absurl 'web:blog_single' post.id %}';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = '{% url 'web:blog_single' post.id %}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = '//fsvoboda.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+{#      <ul>#}
+{#        <!-- Comment 1 -->#}
+{#        <li>#}
+{#          <div class="comment-head">#}
+{#            <img src="{% static 'web/images/client-img.jpg' %}" alt="">#}
+{#            <div>#}
+{#              <h4>James Carrick</h4>#}
+{#              <span>1 Day ago</span>#}
+{#            </div>#}
+{#            <a href="#">Reply</a>#}
+{#          </div>#}
+{#          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>#}
+{#        </li>#}
+{#        <!-- Comment 2 -->#}
+{#        <li class="comment-reply">#}
+{#          <div class="comment-head">#}
+{#            <img src="{% static 'web/images/client-img.jpg' %}" alt="">#}
+{#            <div>#}
+{#              <h4>Melissa Bakos</h4>#}
+{#              <span>1 Day ago</span>#}
+{#            </div>#}
+{#            <a href="#">Reply</a>#}
+{#          </div>#}
+{#          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>#}
+{#        </li>#}
+{#        <!-- Comment 3 -->#}
+{#        <li>#}
+{#          <div class="comment-head">#}
+{#            <img src="{% static 'web/images/client-img.jpg' %}" alt="">#}
+{#            <div>#}
+{#              <h4>Harold Hackett</h4>#}
+{#              <span>2 Days ago</span>#}
+{#            </div>#}
+{#            <a href="#">Reply</a>#}
+{#          </div>#}
+{#          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla scelerisque purus in tempus. Sed vel risus dapibus, dignissim ante id, iaculis quam.</p>#}
+{#        </li>#}
+{#        <!-- end Comment 3 -->#}
+{#      </ul>#}
+{#    </div>#}
+{#    <!-- end Comments -->#}
+{#    <!-- Write Comment -->#}
+{#    <div class="write-comment">#}
+{#      <h3>Leave a Reply</h3>#}
+{#      <form method="post">#}
+{#        <div class="comment-input">#}
+{#          <input type="text" id="name" name="name" placeholder="Name">#}
+{#        </div>#}
+{#        <div class="comment-input">#}
+{#          <input type="email" id="email" name="email" placeholder="E-Mail">#}
+{#        </div>#}
+{#        <!-- clearfix --><div class="clearfix"></div><!-- end clearfix -->#}
+{#        <div class="comment-text">#}
+{#          <textarea name="message" id="message" placeholder="Message"></textarea>#}
+{#        </div>#}
+{#        <input type="submit" id="submit" class="submit-style" name="submit" value="Post Comment">#}
+{#      </form>#}
     </div>
     <!-- end Write Comment -->
   </div>

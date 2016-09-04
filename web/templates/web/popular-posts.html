@@ -1,0 +1,20 @@
+{% load hitcount_tags %}
+<div class="sidebar-box">
+    <h4>Popular Projects</h4>
+    <div class="popular-posts">
+      <!-- Popular Post 1 -->
+    {% for post in posts %}
+        {% get_hit_count for post as hits %}
+      <div class="post-box">
+        <div>
+          <p><a href="{% url 'web:blog_single' post.id %}{{ post.title|slugify }}">{{ post.title }}</a></p>
+          <span>Dec 09, 2015</span>
+          <div>
+              <span>{{ hits }} views</span>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+      <!-- end Popular Post 3 -->
+    </div>
+</div>
