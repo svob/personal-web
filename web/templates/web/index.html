@@ -199,7 +199,9 @@
         <div class="container">
   				<div class="resume section-title">
   					<h2>Resume</h2>
+                    {% if me.resume %}
   					<p><a href="{{ MEDIA_URL }}{{ me.resume }}"><i class="fa fa-file-pdf-o"></i> Download</a></p>
+                    {% endif %}
   				</div>
   				<div class="row">
   					<div class="col-xs-12 col-md-6 education-content">
