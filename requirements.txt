@@ -1,0 +1,6 @@
+Django==1.10
+django-ckeditor==5.1.0
+django-hitcount==1.2.2
+django-solo==1.1.2
+Pillow==3.3.1
+sorl-thumbnail==12.3
