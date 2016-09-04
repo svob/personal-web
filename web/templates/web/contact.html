@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+{% load socials %}
 
-</body>
-</html>
+{% block title %}{{ block.super }} | Contact{% endblock %}
+{% block content %}
+    <header>
+      <div class="blog-title parallax-section">
+        <div class="white-layer">
+          <div class="container">
+            <h2>Contact</h2>
+          </div><!-- end container -->
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="blog-page-background">
+        <div class="container">
+					<div class="contact-form">
+						<div class="section-title">
+	  					<h2>Get In Touch</h2>
+	  				</div>
+	  				<!-- contact form -->
+	  				<form method="post" id="contactform">
+                        {% csrf_token %}
+                      <div class="input-style">
+                          <div>
+                              {{ form.name }}
+                          </div>
+                          <div>
+                              {{ form.email }}
+                          </div>
+                        <div>
+                            {{ form.phone }}
+                        </div>
+                      </div>
+              <div class="text-style">
+                  {{ form.message }}
+                <input type="submit" id="submit" class="submit-style" name="submit" value="Send Message">
+              </div>
+              <div>
+                <p id="success">Your Message has been sent!</p>
+                <p id="error">Something went wrong, go back and try again!</p>
+              </div>
+            </form>
+	  				<!-- end contact form -->
+					</div>
+  			</div><!-- end container -->
+      </div>
+    </section>
+{% endblock %}

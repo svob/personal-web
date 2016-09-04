@@ -106,5 +106,6 @@ class PortfolioCategoryView(generic.ListView):
 
 
 def contact(request):
-    return render(request, 'web/contact.html')
+    form = ContactForm()
+    return render(request, 'web/contact.html', {'form':form})
 
