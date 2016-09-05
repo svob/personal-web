@@ -223,7 +223,7 @@
                             <h3>{{ work.position }}</h3>
                             <h2>{{ work.company_name }}</h2>
                             <span class="date"><i class="fa fa-calendar"></i>{{ work.start }}{% if work.end %}-{% endif %}{{ work.end }}</span>
-                            <span><i class="fa fa-map-marker"></i>{{ work.location }}</span>
+                            {% if work.location %}<span><i class="fa fa-map-marker"></i>{{ work.location }}</span>{% endif %}
                             <p>{{ work.description }}</p>
                             <i class="icon icon-basic-case"></i>
   						</div>
