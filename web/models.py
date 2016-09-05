@@ -34,7 +34,7 @@ class School(models.Model):
     course = models.CharField(max_length=100)
     start = models.CharField(max_length=50)
     end = models.CharField(max_length=50, blank=True, null=True)
-    location = models.CharField(max_length=100)
+    location = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(max_length=500, blank=True, null=True)
     person = models.ForeignKey(Me, default=1)
 
@@ -47,7 +47,7 @@ class Work(models.Model):
     position = models.CharField(max_length=100)
     start = models.CharField(max_length=50)
     end = models.CharField(max_length=50, blank=True, null=True)
-    location = models.CharField(max_length=100)
+    location = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(max_length=500, blank=True, null=True)
     person = models.ForeignKey(Me, default=1)
 
