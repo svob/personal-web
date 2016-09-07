@@ -45,7 +45,7 @@
                                     {% if technology.icon_class %}
                                         <i class="{{ technology.icon_class }}"></i>
                                     {% elif technology.icon_image %}
-                                        <img src="{{ MEDIA_URL }}{{ technology.icon_image }}">
+                                        <img src="{{ MEDIA_URL }}{{ technology.icon_image }}" alt="{{ technology.name }}">
                                     {% endif %}
                                     </li>
                                 {% endfor %}

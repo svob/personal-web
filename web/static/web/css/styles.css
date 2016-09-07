@@ -1103,7 +1103,7 @@ input, textarea {
 .post-images > div {
 	text-align: center;
 	padding: 5px;
-	flex: 1 0 50%;
+	flex: 0 0 50%;
 }
 
 .post-images > div:first-child {
@@ -1169,8 +1169,8 @@ input, textarea {
 }
 
 .post-info ul.icons img {
-	max-height: 20px;
-	mex-width: 20px;
+	max-height: 30px;
+	mex-width: 30px;
 }
 
 .post-additional-info {
