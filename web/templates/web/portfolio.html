@@ -43,7 +43,7 @@
                                 {% for technology in post.technologies.all %}
                                     <li>
                                     {% if technology.icon_class %}
-                                        <i class="{{ technology.icon_class }}"></i>
+                                        <i class="{{ technology.icon_class }}" alt="{{ technology.name }}"></i>
                                     {% elif technology.icon_image %}
                                         <img src="{{ MEDIA_URL }}{{ technology.icon_image }}">
                                     {% endif %}
