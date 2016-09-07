@@ -1098,7 +1098,7 @@ input, textarea {
 
 .post-images img {
     align-self: center;
-	max-height: 150px;
+	max-height: 75px;
 }
 
 .post-images > div {
@@ -1109,6 +1109,10 @@ input, textarea {
 
 .post-images > div:first-child {
 	flex: 0 1 100%;
+}
+
+.post-images > div:first-child img {
+	max-height: 150px;
 }
 
 .post-info h4 a {
